@@ -1,0 +1,85 @@
+
+
+<style>
+/* Form container */
+.issue-form {
+    max-width: 700px;
+    margin: auto;
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    transition: box-shadow 0.3s;
+}
+.issue-form:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* Form labels */
+.issue-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #34495e;
+}
+
+/* Inputs and textarea */
+.issue-form input[type="text"],
+.issue-form select,
+.issue-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.issue-form input[type="text"]:focus,
+.issue-form select:focus,
+.issue-form textarea:focus {
+    outline: none;
+    border-color: #6a11cb;
+    box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+}
+
+/* Submit button */
+.issue-form button {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.issue-form button:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    transform: translateY(-3px);
+}
+</style>
+
+<form method="POST" action="{{ url_for('post_issue') }}" class="issue-form">
+    <center><h2 class="text-center mb-4"><u><b>Post New Issue</b></u></h2></center>
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" placeholder="Enter issue title" required>
+
+    <label for="category">Category:</label>
+    <select name="category" id="category" required>
+        <option value="">-- Select Category --</option>
+        <option value="Anxiety">Anxiety</option>
+        <option value="Depression">Depression</option>
+        <option value="Stress">Stress</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <label for="description">Description:</label>
+    <textarea name="description" id="description" rows="5" placeholder="Describe your issue" required></textarea>
+
+    <button type="submit">Submit</button>
+</form>
