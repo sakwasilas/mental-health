@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+.dashboard-container {
+    max-width: 900px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-custom {
+    width: 100%;
+}
+</style>
+
+<div class="dashboard-container">
+
+    <h2 class="text-center mb-4">Welcome to Your Dashboard</h2>
+
+    <div class="row g-4">
+
+        <!-- Post Issue -->
+        <div class="col-md-6">
+            <div class="card p-4 text-center">
+                <h5>Post Mental Health Issue</h5>
+                <p>Share your concern with a counselor</p>
+                <a href="/post_issue" class="btn btn-primary btn-custom">Post Issue</a>
+            </div>
+        </div>
+
+        <!-- My Issues -->
+        <div class="col-md-6">
+            <div class="card p-4 text-center">
+                <h5>My Issues</h5>
+                <p>View your submitted issues</p>
+                <a href="/my_issues" class="btn btn-success btn-custom">View Issues</a>
+            </div>
+        </div>
+
+        <!-- Appointments -->
+        <div class="col-md-6">
+            <div class="card p-4 text-center">
+                <h5>Appointments</h5>
+                <p>Manage your sessions</p>
+                <a href="/my_appointments" class="btn btn-warning btn-custom">Appointments</a>
+            </div>
+        </div>
+
+        <!-- AI Assistant -->
+        <div class="col-md-6">
+            <div class="card p-4 text-center">
+                <h5>AI Assistant</h5>
+                <p>Get quick guidance before counseling</p>
+                <a href="/ai_chat" class="btn btn-info btn-custom">Open AI</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Logout -->
+    <div class="text-center mt-4">
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+
+</div>
+
+{% endblock %}
