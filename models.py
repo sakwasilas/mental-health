@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, Date, Time
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from connections import Base
 from datetime import datetime
+
 
 # ------------------------
 # User Table
@@ -17,7 +18,22 @@ class User(Base):
 
     # Relationships
     issues = relationship("Issue", back_populates="user")
-    appointments = relationship("Appointment", back_populates="user")
+
+    # appointments where this user is the client
+    user_appointments = relationship(
+        "Appointment",
+        foreign_keys="Appointment.user_id",
+        back_populates="user"
+    )
+
+    # appointments where this user is the counselor
+    counselor_appointments = relationship(
+        "Appointment",
+        foreign_keys="Appointment.counselor_id",
+        back_populates="counselor"
+    )
+
+    chat_messages = relationship("ChatMessage", back_populates="user")
 
 
 # ------------------------
@@ -31,8 +47,9 @@ class Issue(Base):
     title = Column(String(255), nullable=False)
     category = Column(String(100), nullable=False)
     description = Column(Text, nullable=False)
-    status = Column(String(50), default="Pending")  # Pending, Reviewed, Resolved
+    status = Column(String(50), default="Pending")
     counselor_reply = Column(Text, nullable=True)
+    response = Column(Text, nullable=True)
     date_posted = Column(DateTime, default=datetime.utcnow)
 
     # Relationship
@@ -46,22 +63,40 @@ class Appointment(Base):
     __tablename__ = "appointments"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    counselor_name = Column(String(100), nullable=False)
-    date = Column(Date, nullable=False)
-    time = Column(Time, nullable=False)
-    status = Column(String(50), default="Pending")  # Pending, Confirmed, Completed, Cancelled
+    counselor_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
-    # Relationship
-    user = relationship("User", back_populates="appointments")
+    date = Column(String(50), nullable=False)
+    time = Column(String(50), nullable=False)
+    status = Column(String(50), default="Pending")
+    payment_method = Column(String(50), nullable=True)
+    meet_link = Column(String(255), nullable=True)
 
+    # Relationships
+    user = relationship(
+        "User",
+        foreign_keys=[user_id],
+        back_populates="user_appointments"
+    )
+
+    counselor = relationship(
+        "User",
+        foreign_keys=[counselor_id],
+        back_populates="counselor_appointments"
+    )
+
+
+# ------------------------
+# Chat Message Table
+# ------------------------
 class ChatMessage(Base):
     __tablename__ = "chat_messages"
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    sender = Column(String(10))  # 'user' or 'ai'
+    sender = Column(String(10))  # user or ai
     text = Column(String(1000))
     timestamp = Column(DateTime, default=datetime.utcnow)
 
-    user = relationship("User", backref="chat_messages")
+    user = relationship("User", back_populates="chat_messages")

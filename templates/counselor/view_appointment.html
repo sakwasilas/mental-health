@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Appointments{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">My Appointments</h2>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Meet Link</th>
+        </tr>
+
+        {% for a in appointments %}
+        <tr>
+            <td>{{ a.date }}</td>
+            <td>{{ a.time }}</td>
+            <td>{{ a.status }}</td>
+            <td>
+                {% if a.meet_link %}
+                    <a href="{{ a.meet_link }}" target="_blank" class="btn btn-primary btn-sm">Join</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('counselor_dashboard') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}

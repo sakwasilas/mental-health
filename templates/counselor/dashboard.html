@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Counselor Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Counselor Dashboard</h2>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <a href="{{ url_for('view_issues') }}" class="btn btn-primary w-100">Pending Issues</a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{{ url_for('responded_issues') }}" class="btn btn-success w-100">Responded Issues</a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{{ url_for('counselor_appointments') }}" class="btn btn-warning w-100">Appointments</a>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+{% endblock %}

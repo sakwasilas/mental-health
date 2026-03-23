@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Respond to Issue{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width:700px;">
+    <h2 class="mb-4">Respond to Issue</h2>
+
+    <div class="card p-3 mb-3">
+        <h5>{{ issue.title }}</h5>
+        <p><strong>Category:</strong> {{ issue.category }}</p>
+        <p><strong>Description:</strong> {{ issue.description }}</p>
+    </div>
+
+    <form method="POST">
+        <textarea name="response" class="form-control mb-3" rows="5" placeholder="Write your response..." required></textarea>
+        <button type="submit" class="btn btn-success">Send Response</button>
+        <a href="{{ url_for('view_issues') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

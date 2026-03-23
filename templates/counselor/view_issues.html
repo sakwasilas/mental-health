@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}View Issues{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Pending Issues</h2>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+
+        {% for issue in issues %}
+        <tr>
+            <td>{{ issue.title }}</td>
+            <td>{{ issue.category }}</td>
+            <td>{{ issue.description }}</td>
+            <td>{{ issue.date_posted }}</td>
+            <td>
+                <a href="{{ url_for('respond_issue', id=issue.id) }}" class="btn btn-primary btn-sm">Respond</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('counselor_dashboard') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}
